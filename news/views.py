@@ -6,8 +6,14 @@ def index(request):
 
 
 def about(request):
+    data={
+        'title':"About Us"
+    }    
     return render(request,'pages/about/about.html')
 
 
 def contact(request):
+    data={
+        'title':"Contact Us"
+    } 
     return render(request,'pages/contact/contact.html')
