@@ -9,11 +9,11 @@ def about(request):
     data={
         'title':"About Us"
     }    
-    return render(request,'pages/about/about.html')
+    return render(request,'pages/about/about.html',data)
 
 
 def contact(request):
     data={
         'title':"Contact Us"
     } 
-    return render(request,'pages/contact/contact.html')
+    return render(request,'pages/contact/contact.html',data)
