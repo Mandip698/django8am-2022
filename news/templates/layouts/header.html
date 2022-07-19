@@ -24,6 +24,10 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
         <link href="{% static 'lib/slick/slick.css' %}" rel="stylesheet">
         <link href="{% static 'lib/slick/slick-theme.css' %}" rel="stylesheet">
+        {% if settingData.favicon %}
+                    <link rel="icon" href="{{settingData.favicon.url}}">
+    
+                    {% endif %}
 
         <!-- Template Stylesheet -->
         <link href="{% static 'css/style.css' %}" rel="stylesheet">
