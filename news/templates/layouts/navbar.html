@@ -10,15 +10,15 @@
 
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto">
-                            <a href="{% url 'index' %}" class="nav-item nav-link active">Home</a>
+                            <a href="{% url 'index' %}" class="nav-item nav-link">Home</a>
                             <div class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Dropdown</a>
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Category</a>
                                 <div class="dropdown-menu">
-                                    <a href="#" class="dropdown-item">Sub Item 1</a>
-                                    <a href="#" class="dropdown-item">Sub Item 2</a>
+                                    {% for category in menuCategory %}
+                                    <a href="{% url 'category' category.category_name %}" class="dropdown-item">{{category.category_name}}</a>
+                                    {% endfor %}
                                 </div>
                             </div>
-                            <a href="single-page.html" class="nav-item nav-link">Single Page</a>
                             <a href="{% url 'contact' %}" class="nav-item nav-link">Contact Us</a>
                         </div>
                         <div class="social ml-auto">

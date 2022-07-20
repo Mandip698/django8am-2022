@@ -1,4 +1,5 @@
 from re import T
+from tabnanny import verbose
 from tkinter import CASCADE
 from turtle import title
 from unicodedata import category
@@ -23,7 +24,7 @@ class Setting(models.Model):
     google = models.CharField(max_length=100, null=True, blank=True)
 
     class Meta:
-        verbose_name_plural = 'Setting'
+        verbose_name_plural='Settings'
 
     def __str__(self):
         return self.name
@@ -33,7 +34,7 @@ class Category(models.Model):
     category_name = models.CharField(max_length=100, unique=True)
 
     class Meta:
-        verbose_name_plural = 'Categories'
+        verbose_name_plural='Categories'    
 
     def __str__(self):
         return self.category_name
@@ -51,7 +52,7 @@ class News(models.Model):
     views = models.IntegerField(default=0)
 
     class Meta:
-        verbose_name_plural = 'News'
+        verbose_name_plural='News'
 
     def __str__(self):
         return self.title
