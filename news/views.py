@@ -25,7 +25,7 @@ def about(request):
 def contact(request):
     data = {
         'newsData': News.objects.all(),
-        'title': "Contact Us"
+        'title': "Contact Us",
     }
     return render(request, 'pages/contact/contact.html', data)
 
@@ -54,6 +54,7 @@ def category(request, slug):
 def blog(request):
     data = {
         'blogsData': Blog.objects.all(),
+        'title':"Blog",
     }
     return render(request, 'pages/blogs/blog.html', data)
 
@@ -61,6 +62,7 @@ def blog(request):
 def blog_details(request, slug):
     data = {
         'blogsData': Blog.objects.get(slug=slug),
+        'title':"Blog",
     }
     return render(request, 'pages/blogs/blog_details.html', data)
 
@@ -83,6 +85,7 @@ def blog_add(request):
     else:
         data = {
             'blogsData': Blog.objects.all(),
+            'title':"Blog",
         }
         return render(request, 'pages/blogs/blog_add.html', data)
 
@@ -128,7 +131,7 @@ def blog_update(request, slug):
         return redirect('blog')
     else:
         data = {
-
+            'title':"Blog",    
             'blogsData': Blog.objects.get(slug=slug)
         }
         return render(request, 'pages/blogs/blog_update.html', data)
