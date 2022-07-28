@@ -37,23 +37,6 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="sn-related">
-                            <h2>Related News</h2>
-                            <div class="row sn-slider">
-                                {% for n_related in related_news%}
-                                <div class="col-md-4">
-                                    <div class="sn-img">
-                                        {% if n_related.image %}
-                                        <img src="{{n_related.image.url}}" height="200" width="100%" alt="{{n_related.title}}"/>
-                                        {% endif %}
-                                        <div class="sn-title">
-                                            <a href="{% url 'news_details' n_related.slug %}">{{n_related.title}}</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                {% endfor %}
-                            </div>
-                        </div>
                     </div>
 
                     <div class="col-lg-4">

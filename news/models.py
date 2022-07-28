@@ -5,6 +5,7 @@ from turtle import title
 from unicodedata import category
 from django.db import models
 from ckeditor.fields import RichTextField
+from django.utils.text import slugify
 
 # Create your models here.
 
@@ -24,7 +25,7 @@ class Setting(models.Model):
     google = models.CharField(max_length=100, null=True, blank=True)
 
     class Meta:
-        verbose_name_plural='Settings'
+        verbose_name_plural = 'Settings'
 
     def __str__(self):
         return self.name
@@ -34,7 +35,7 @@ class Category(models.Model):
     category_name = models.CharField(max_length=100, unique=True)
 
     class Meta:
-        verbose_name_plural='Categories'    
+        verbose_name_plural = 'Categories'
 
     def __str__(self):
         return self.category_name
@@ -52,7 +53,23 @@ class News(models.Model):
     views = models.IntegerField(default=0)
 
     class Meta:
-        verbose_name_plural='News'
+        verbose_name_plural = 'News'
+
+    def __str__(self):
+        return self.title
+
+
+class Blog(models.Model):
+    date = models.DateTimeField(auto_now_add=True)
+    title = models.CharField(max_length=255)
+    author = models.CharField(max_length=100, null=True, blank=True)
+    slug = models.SlugField(max_length=255, unique=True)
+    image = models.ImageField(upload_to='images/', null=True, blank=True)
+    intro = RichTextField(null=True, blank=True)
+    content = RichTextField(null=True, blank=True)
+
+    class Meta:
+        verbose_name_plural = 'Blog'
 
     def __str__(self):
         return self.title
