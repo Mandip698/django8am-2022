@@ -1,16 +1,29 @@
+from django import views
 from django.shortcuts import render, redirect
 from .models import *
 from django.contrib import messages
 import os
 from django.utils.text import slugify
+from django.db.models import Q, Count
+from django.core.mail import send_mail
+
 
 # Create your views here.
 
 
 def index(request):
+    q = request.GET.get('search') if request.GET.get('search') != None else ''
+    newsData = News.objects.filter(
+        Q(title__icontains=q) |
+        Q(author__icontains=q) |
+        Q(intro__icontains=q)
+    ).all()
+    CategoryData = Category.objects.all()
+    popular_news = News.objects.annotate(Count('views')).order_by('-views__count')[:3]
     data = {
-        'newsData': News.objects.all(),
-        'CategoryData': Category.objects.all(),
+        'popular_news': popular_news,
+        'newsData': newsData,
+        'CategoryData': CategoryData,
     }
     return render(request, 'pages/home/index.html', data)
 
@@ -23,9 +36,18 @@ def about(request):
 
 
 def contact(request):
+    # if request.method == "POST":
+    #     send_mail(
+    #         'Subject here',
+    #         'Here is the message.',
+    #         'mandip698@gmail.com',
+    #         ['mandip698@gmail.com'],
+    #         fail_silently=False,
+    #     )
     data = {
         'newsData': News.objects.all(),
         'title': "Contact Us",
+
     }
     return render(request, 'pages/contact/contact.html', data)
 
@@ -54,7 +76,7 @@ def category(request, slug):
 def blog(request):
     data = {
         'blogsData': Blog.objects.all(),
-        'title':"Blog",
+        'title': "Blog",
     }
     return render(request, 'pages/blogs/blog.html', data)
 
@@ -62,7 +84,7 @@ def blog(request):
 def blog_details(request, slug):
     data = {
         'blogsData': Blog.objects.get(slug=slug),
-        'title':"Blog",
+        'title': "Blog",
     }
     return render(request, 'pages/blogs/blog_details.html', data)
 
@@ -77,15 +99,15 @@ def blog_add(request):
         image = ''
         if request.FILES:
             image = request.FILES['image']
-        Blog.objects.create(
-            title=title, author=author, intro=intro, content=content, slug=slug, image=image
-        )
+            Blog.objects.create(
+                title=title, author=author, intro=intro, content=content, slug=slug, image=image
+            )
         messages.success(request, 'Blog Added Successfully')
         return redirect('blog')
     else:
         data = {
             'blogsData': Blog.objects.all(),
-            'title':"Blog",
+            'title': "Blog",
         }
         return render(request, 'pages/blogs/blog_add.html', data)
 
@@ -131,7 +153,7 @@ def blog_update(request, slug):
         return redirect('blog')
     else:
         data = {
-            'title':"Blog",    
+            'title': "Blog",
             'blogsData': Blog.objects.get(slug=slug)
         }
         return render(request, 'pages/blogs/blog_update.html', data)
