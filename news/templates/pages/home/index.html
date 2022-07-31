@@ -78,49 +78,22 @@
                     <div class="col-md-6">
                         <ul class="nav nav-pills nav-justified">
                             <li class="nav-item">
-                                <a class="nav-link active" data-toggle="pill" href="#featured">Featured News</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="pill" href="#popular">Popular News</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="pill" href="#latest">Latest News</a>
+                                <a class="nav-link active" data-toggle="pill" href="#most_viewed">Most Viewed News</a>
                             </li>
                         </ul>
                         <div class="tab-content">
-                            <div id="featured" class="container tab-pane active">
-                                <div class="tn-news">
-                                    <div class="tn-img">
-                                        <img src="img/news-350x223-1.jpg" />
-                                    </div>
-                                    <div class="tn-title">
-                                        <a href="">Lorem ipsum dolor sit amet</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="popular" class="container tab-pane fade">
-                                <div class="tn-news">
-                                
-                                {% for news in popular_news %}
-                                    {% if news.image %}
-                                    <div class="tn-img">
-                                        <img src="{{news.image.url}}" alt="{{news.title}}"/>
-                                    </div>
-                                    {% endif %}
-                                    <div class="tn-title">
-                                        <a href="{% url 'news_details' news.slug %}">{{news.title}}</a>
-                                    </div>
-                                {% endfor %}
-                                </div>
-                            </div>
-                            <div id="latest" class="container tab-pane fade">
-                                <div class="tn-news">
-                                    <div class="tn-img">
-                                        <img src="img/news-350x223-2.jpg" />
-                                    </div>
-                                    <div class="tn-title">
-                                        <a href="">Lorem ipsum dolor sit amet</a>
-                                    </div>
+                            <div class="tn-news">
+                                <div id="most_viewed">
+                                    {% for news in most_viewed_news %}
+                                        {% if news.image %}
+                                            <div class="tn-img">
+                                                <img src="{{news.image.url}}" alt="{{news.title}}"/>
+                                            </div>
+                                        {% endif %}
+                                        <div class="tn-title">
+                                            <a href="{% url 'news_details' news.slug %}">{{news.title}}</a>
+                                        </div>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>

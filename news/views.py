@@ -19,9 +19,9 @@ def index(request):
         Q(intro__icontains=q)
     ).all()
     CategoryData = Category.objects.all()
-    popular_news = News.objects.annotate(Count('views')).order_by('-views__count')[:3]
+    most_viewed_news = News.objects.annotate(Count('views')).order_by('-views__count')[:3]
     data = {
-        'popular_news': popular_news,
+        'most_viewed_news': most_viewed_news,
         'newsData': newsData,
         'CategoryData': CategoryData,
     }
@@ -58,10 +58,13 @@ def news_details(request, slug):
         category=n_obj.category).exclude(slug=slug)
     n_obj.views += 1
     n_obj.save()
+    most_viewed_news = News.objects.filter(
+        category=n_obj.category).exclude(slug=slug).annotate(Count('views')).order_by('-views__count')[:1]
     data = {
         'newsData': News.objects.get(slug=slug),
         'CategoryData': Category.objects.all(),
         'related_news': related_news,
+        'most_viewed_news': most_viewed_news,
     }
     return render(request, 'pages/news/news_details.html', data)
 
